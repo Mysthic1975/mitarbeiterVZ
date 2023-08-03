@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "employee", schema = "public")
-public class UserEntity {
+public class EmployeeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,7 +31,7 @@ public class UserEntity {
     @Column
     private String profilePicture;
 
-    public UserEntity(Long id, String firstName, String lastName, String position, String department, String email, String phoneNumber, String profilePicture) {
+    public EmployeeEntity(Long id, String firstName, String lastName, String position, String department, String email, String phoneNumber, String profilePicture) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,7 +42,7 @@ public class UserEntity {
         this.profilePicture = profilePicture;
     }
 
-    public UserEntity() {
+    public EmployeeEntity() {
 
     }
 
