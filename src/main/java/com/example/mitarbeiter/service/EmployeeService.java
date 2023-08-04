@@ -9,4 +9,8 @@ public interface EmployeeService {
     void saveEmployee(EmployeeEntity employee);
     void updateEmployee(EmployeeEntity employee, Long employeeId);
     void deleteEmployee(Long employeeId);
+
+    // Methode zum Suchen von Mitarbeitern
+    List<EmployeeEntity> searchEmployees(String search);
 }
+

@@ -52,4 +52,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Long employeeId) {
         employeeRepository.deleteById(employeeId);
     }
+
+    // Implementierung der Methode zum Suchen von Mitarbeitern
+    @Override
+    public List<EmployeeEntity> searchEmployees(String search) {
+        return employeeRepository.searchEmployees(search);
+    }
 }
+
