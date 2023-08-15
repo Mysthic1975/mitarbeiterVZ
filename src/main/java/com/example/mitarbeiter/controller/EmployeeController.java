@@ -80,4 +80,11 @@ public class EmployeeController {
         return "redirect:/employee/" + id;
     }
 
+    @GetMapping("/search")
+    public String searchEmployees(@RequestParam String search, Model model) {
+        List<EmployeeEntity> employees = employeeService.searchEmployees(search);
+        model.addAttribute("employees", employees);
+        return "employee/list";
+    }
+
 }
