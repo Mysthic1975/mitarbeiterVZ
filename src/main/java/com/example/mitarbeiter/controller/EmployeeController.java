@@ -80,6 +80,13 @@ public class EmployeeController {
         return "redirect:/employee/" + id;
     }
 
+    // Endpunkt zum Löschen eines vorhandenen Mitarbeiters
+    @GetMapping("/{id}/delete")
+    public String deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
+        return "redirect:/";
+    }
+
     @GetMapping("/search")
     public String searchEmployees(@RequestParam String search, Model model) {
         List<EmployeeEntity> employees = employeeService.searchEmployees(search);

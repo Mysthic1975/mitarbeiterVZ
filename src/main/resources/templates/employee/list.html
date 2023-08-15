@@ -20,10 +20,8 @@
             <th>Abteilung</th>
             <th>E-Mail</th>
             <th>Telefonnummer</th>
-            <!-- Neue Spalte für den Bearbeiten-Button -->
-            <th>Bearbeiten</th>
-            <!-- Neue Spalte für den Löschen-Button -->
-            <th>Löschen</th>
+            <!-- Neue Spalte für den Bearbeiten- und Löschen-Button ohne Überschrift -->
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -44,11 +42,11 @@
             <!-- Telefonnummer des Mitarbeiters -->
             <td th:text="${employee.phoneNumber}"></td>
 
-            <!-- Bearbeiten-Button in jeder Zeile -->
-            <td class="text-center"><a th:href="@{/employee/{id}/edit(id=${employee.id})}" class="btn btn-icon-small"><i class="material-icons">edit</i></a></td>
-
-            <!-- Löschen-Button in jeder Zeile -->
-            <td class="text-center"><a th:href="@{/employee/{id}/delete(id=${employee.id})}" class="btn btn-icon-small btn-danger delete-button"><i class="material-icons">delete</i></a></td>
+            <!-- Bearbeiten- und Löschen-Button in einer Spalte -->
+            <td class="text-center">
+                <a th:href="@{/employee/{id}/edit(id=${employee.id})}" class="btn btn-icon-small"><i class="material-icons">edit</i></a>
+                <a th:href="@{/employee/{id}/delete(id=${employee.id})}" class="btn btn-icon-small delete-button"><i class="material-icons text-danger">delete</i></a>
+            </td>
 
         </tr>
         </tbody>
