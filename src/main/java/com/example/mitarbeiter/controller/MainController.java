@@ -21,7 +21,7 @@ public class MainController {
     public String index(Model model) {
         List<EmployeeEntity> employees = employeeService.getAllEmployees();
         model.addAttribute("employees", employees);
-        return "start";
+        return "employee/list";
     }
 
 }

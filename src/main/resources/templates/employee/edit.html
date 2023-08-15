@@ -1,45 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<html xmlns:th="http://www.thymeleaf.org" lang="de" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
 <head>
     <title>Mitarbeiter bearbeiten</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
 </head>
 <body>
 
-<div class="container">
-    <h1>Mitarbeiter bearbeiten</h1>
+<div layout:fragment="content">
 
-    <!-- Bearbeiten-Formular -->
-    <form action="#" th:action="@{/employee/{id}/edit(id=${employee.id})}" th:object="${employee}" method="post">
-        <!-- Verstecktes Feld für die ID des Mitarbeiters -->
-        <input type="hidden" th:field="*{id}" />
-        <div class="form-group">
-            <label for="firstName">Vorname</label>
-            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
-        </div>
-        <div class="form-group">
-            <label for="lastName">Nachname</label>
-            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
-        </div>
-        <div class="form-group">
-            <label for="position">Position</label>
-            <input type="text" class="form-control" id="position" th:field="*{position}" />
-        </div>
-        <div class="form-group">
-            <label for="department">Abteilung</label>
-            <input type="text" class="form-control" id="department" th:field="*{department}" />
-        </div>
-        <div class="form-group">
-            <label for="email">E-Mail</label>
-            <input type="email" class="form-control" id="email" th:field="*{email}" />
-        </div>
-        <div class="form-group">
-            <label for="phoneNumber">Telefonnummer</label>
-            <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
-        </div>
-        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
-    </form>
+    <div class="container">
+        <h1 class="my-4">Mitarbeiter bearbeiten</h1>
+
+        <!-- Bearbeiten-Formular -->
+        <form action="#" th:action="@{/employee/{id}/edit(id=${employee.id})}" th:object="${employee}" method="post">
+            <!-- Verstecktes Feld für die ID des Mitarbeiters -->
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="firstName">Vorname</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Nachname</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+            </div>
+            <div class="form-group">
+                <label for="position">Position</label>
+                <select class="form-control" id="position" th:field="*{position}">
+                    <option value="">--Bitte wählen--</option>
+                    <option th:each="position : ${positions}" th:value="${position}" th:text="${position}" th:selected="${employee.position == position}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="department">Abteilung</label>
+                <input type="text" class="form-control" id="department" th:field="*{department}" />
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" class="form-control" id="email" th:field="*{email}" />
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Telefonnummer</label>
+                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
+            </div>
+            <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+        </form>
+    </div>
 </div>
-
 </body>
 </html>
+

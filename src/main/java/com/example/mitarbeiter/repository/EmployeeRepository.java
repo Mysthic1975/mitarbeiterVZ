@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> {
     // Methode zum Suchen von Mitarbeitern
-    @Query("SELECT e FROM EmployeeEntity e WHERE e.firstName LIKE %:search% OR e.lastName LIKE %:search% OR e.position LIKE %:search% OR e.department LIKE %:search%")
+    @Query("SELECT e FROM EmployeeEntity e WHERE lower(e.firstName) LIKE lower(concat('%', :search, '%')) OR lower(e.lastName) LIKE lower(concat('%', :search, '%')) OR lower(e.position) LIKE lower(concat('%', :search, '%')) OR lower(e.department) LIKE lower(concat('%', :search, '%'))")
     List<EmployeeEntity> searchEmployees(@Param("search") String search);
 }
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Mitarbeiterverzeichnis</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <h1 class="my-4">Mitarbeiterverwaltung</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Position</th>
+            <th>Abteilung</th>
+            <th>E-Mail</th>
+            <th>Telefonnummer</th>
+            <!-- Neue Spalte für den Bearbeiten-Button -->
+            <th>Bearbeiten</th>
+            <!-- Neue Spalte für den Löschen-Button -->
+            <th>Löschen</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Schleife zum Anzeigen aller Mitarbeiter -->
+        <tr th:each="employee : ${employees}">
+            <!-- ID des Mitarbeiters -->
+            <td th:text="${employee.id}"></td>
+            <!-- Vorname des Mitarbeiters -->
+            <td th:text="${employee.firstName}"></td>
+            <!-- Nachname des Mitarbeiters -->
+            <td th:text="${employee.lastName}"></td>
+            <!-- Position des Mitarbeiters -->
+            <td th:text="${employee.position}"></td>
+            <!-- Abteilung des Mitarbeiters -->
+            <td th:text="${employee.department}"></td>
+            <!-- E-Mail des Mitarbeiters -->
+            <td th:text="${employee.email}"></td>
+            <!-- Telefonnummer des Mitarbeiters -->
+            <td th:text="${employee.phoneNumber}"></td>
+
+            <!-- Bearbeiten-Button in jeder Zeile -->
+            <td class="text-center"><a th:href="@{/employee/{id}/edit(id=${employee.id})}" class="btn btn-icon-small"><i class="material-icons">edit</i></a></td>
+
+            <!-- Löschen-Button in jeder Zeile -->
+            <td class="text-center"><a th:href="@{/employee/{id}/delete(id=${employee.id})}" class="btn btn-icon-small btn-danger delete-button"><i class="material-icons">delete</i></a></td>
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+<script layout:fragment="scripts">
+    // Funktion zum Anzeigen einer Bestätigungsdialogbox, wenn der Benutzer auf den Löschen-Button klickt
+    function confirmDelete() {
+        // Alle Löschen-Schaltflächen finden
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        // Jede Schaltfläche durchlaufen
+        for (let i = 0; i < deleteButtons.length; i++) {
+            // Event-Listener zum Anzeigen der Bestätigungsdialogbox hinzufügen
+            deleteButtons[i].addEventListener('click', function(event) {
+                // Bestätigungsdialogbox anzeigen
+                if (!confirm('Möchtest du diesen Mitarbeiter wirklich löschen?')) {
+                    // Wenn der Benutzer auf "Abbrechen" klickt, das Löschen verhindern
+                    event.preventDefault();
+                }
+            });
+        }
+    }
+
+    // Event-Listener zum Anzeigen der Bestätigungsdialogbox hinzufügen, wenn die Seite geladen wird
+    window.addEventListener('load', confirmDelete);
+</script>
+
+</body>
+</html>

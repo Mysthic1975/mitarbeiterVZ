@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<html xmlns:th="http://www.thymeleaf.org" lang="de" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
 <head>
   <title>Neuen Mitarbeiter anlegen</title>
   <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
 </head>
 <body>
 
+<div layout:fragment="content">
+
 <div class="container">
-  <h1>Neuen Mitarbeiter anlegen</h1>
+  <h1 class="my-4">Neuen Mitarbeiter anlegen</h1>
 
   <form action="/employee/create" method="post">
     <div class="form-group">
@@ -20,7 +23,10 @@
     </div>
     <div class="form-group">
       <label for="position">Position</label>
-      <input type="text" class="form-control" id="position" name="position" />
+      <select class="form-control" id="position" name="position">
+        <option value="">--Bitte wählen--</option>
+        <option th:each="position : ${positions}" th:value="${position}" th:text="${position}"></option>
+      </select>
     </div>
     <div class="form-group">
       <label for="department">Abteilung</label>
@@ -37,6 +43,7 @@
     <button type="submit" class="btn btn-primary">Mitarbeiter anlegen</button>
   </form>
 </div>
-<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
+</div>
+
 </body>
 </html>
