@@ -16,31 +16,43 @@
             <!-- Verstecktes Feld für die ID des Mitarbeiters -->
             <input type="hidden" th:field="*{id}" />
             <div class="form-group">
-                <label for="firstName">Vorname</label>
-                <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                <div class="col-md-6">
+                    <label for="firstName">Vorname</label>
+                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                </div>
             </div>
             <div class="form-group">
-                <label for="lastName">Nachname</label>
-                <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                <div class="col-md-6">
+                    <label for="lastName">Nachname</label>
+                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                </div>
             </div>
             <div class="form-group">
-                <label for="position">Position</label>
-                <select class="form-control" id="position" th:field="*{position}">
-                    <option value="">--Bitte wählen--</option>
-                    <option th:each="position : ${positions}" th:value="${position}" th:text="${position}" th:selected="${employee.position == position}"></option>
-                </select>
+                <div class="col-md-6">
+                    <label for="position">Position</label>
+                    <select class="form-control" id="position" th:field="*{position}">
+                        <option value="">--Bitte wählen--</option>
+                        <option th:each="position : ${positions}" th:value="${position}" th:text="${position}" th:selected="${employee.position == position}"></option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
-                <label for="department">Abteilung</label>
-                <input type="text" class="form-control" id="department" th:field="*{department}" />
+                <div class="col-md-6">
+                    <label for="department">Abteilung</label>
+                    <input type="text" class="form-control" id="department" th:field="*{department}" />
+                </div>
             </div>
             <div class="form-group">
-                <label for="email">E-Mail</label>
-                <input type="email" class="form-control" id="email" th:field="*{email}" />
+                <div class="col-md-6">
+                    <label for="email">E-Mail</label>
+                    <input type="email" class="form-control" id="email" th:field="*{email}" />
+                </div>
             </div>
             <div class="form-group">
-                <label for="phoneNumber">Telefonnummer</label>
-                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
+                <div class="col-md-6">
+                    <label for="phoneNumber">Telefonnummer</label>
+                    <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Änderungen speichern</button>
         </form>
@@ -48,4 +60,3 @@
 </div>
 </body>
 </html>
-

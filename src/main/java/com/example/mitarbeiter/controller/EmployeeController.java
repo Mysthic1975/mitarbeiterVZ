@@ -36,6 +36,12 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "employee/view";
     }
+    @GetMapping("/sort/{sortBy}")
+    public String getAllEmployeesSortedBy(@PathVariable String sortBy, Model model) {
+        List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy);
+        model.addAttribute("employees", employees);
+        return "employee/list";
+    }
 
     @PostMapping
     public String saveEmployee(@ModelAttribute EmployeeEntity employee) {

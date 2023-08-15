@@ -11,5 +11,10 @@ public interface EmployeeRepository extends JpaRepository<EmployeeEntity, Long> 
     // Methode zum Suchen von Mitarbeitern
     @Query("SELECT e FROM EmployeeEntity e WHERE lower(e.firstName) LIKE lower(concat('%', :search, '%')) OR lower(e.lastName) LIKE lower(concat('%', :search, '%')) OR lower(e.position) LIKE lower(concat('%', :search, '%')) OR lower(e.department) LIKE lower(concat('%', :search, '%'))")
     List<EmployeeEntity> searchEmployees(@Param("search") String search);
+    List<EmployeeEntity> findAllByOrderByFirstNameAsc();
+    List<EmployeeEntity> findAllByOrderByLastNameAsc();
+    List<EmployeeEntity> findAllByOrderByPositionAsc();
+    List<EmployeeEntity> findAllByOrderByDepartmentAsc();
+    List<EmployeeEntity> findAllByOrderByEmailAsc();
 }
 

@@ -58,5 +58,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeEntity> searchEmployees(String search) {
         return employeeRepository.searchEmployees(search);
     }
-}
 
+    @Override
+    public List<EmployeeEntity> getAllEmployeesSortedBy(String sortBy) {
+        switch (sortBy) {
+            case "firstName":
+                return employeeRepository.findAllByOrderByFirstNameAsc();
+            case "lastName":
+                return employeeRepository.findAllByOrderByLastNameAsc();
+            case "position":
+                return employeeRepository.findAllByOrderByPositionAsc();
+            case "department":
+                return employeeRepository.findAllByOrderByDepartmentAsc();
+            case "email":
+                return employeeRepository.findAllByOrderByEmailAsc();
+            default:
+                return employeeRepository.findAll();
+        }
+    }
+}

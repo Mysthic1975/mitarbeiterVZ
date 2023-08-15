@@ -10,17 +10,16 @@
 
     <h1 class="my-4">Mitarbeiterverwaltung</h1>
 
-    <table class="table">
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Position</th>
-            <th>Abteilung</th>
-            <th>E-Mail</th>
+            <th><a th:href="@{/employee/sort/id}">ID</a></th>
+            <th><a th:href="@{/employee/sort/firstName}">Vorname</a></th>
+            <th><a th:href="@{/employee/sort/lastName}">Nachname</a></th>
+            <th><a th:href="@{/employee/sort/position}">Position</a></th>
+            <th><a th:href="@{/employee/sort/department}">Abteilung</a></th>
+            <th><a th:href="@{/employee/sort/email}">E-Mail</a></th>
             <th>Telefonnummer</th>
-            <!-- Neue Spalte für den Bearbeiten- und Löschen-Button ohne Überschrift -->
             <th></th>
         </tr>
         </thead>
