@@ -60,20 +60,27 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeEntity> getAllEmployeesSortedBy(String sortBy) {
-        switch (sortBy) {
-            case "firstName":
-                return employeeRepository.findAllByOrderByFirstNameAsc();
-            case "lastName":
-                return employeeRepository.findAllByOrderByLastNameAsc();
-            case "position":
-                return employeeRepository.findAllByOrderByPositionAsc();
-            case "department":
-                return employeeRepository.findAllByOrderByDepartmentAsc();
-            case "email":
-                return employeeRepository.findAllByOrderByEmailAsc();
-            default:
-                return employeeRepository.findAll();
+    public List<EmployeeEntity> getAllEmployeesSortedBy(String sortBy, String sortDirection) {
+        if (sortDirection.equals("asc")) {
+            return switch (sortBy) {
+                case "id" -> employeeRepository.findAllByOrderByIdAsc();
+                case "firstName" -> employeeRepository.findAllByOrderByFirstNameAsc();
+                case "lastName" -> employeeRepository.findAllByOrderByLastNameAsc();
+                case "position" -> employeeRepository.findAllByOrderByPositionAsc();
+                case "department" -> employeeRepository.findAllByOrderByDepartmentAsc();
+                case "email" -> employeeRepository.findAllByOrderByEmailAsc();
+                default -> employeeRepository.findAll();
+            };
+        } else {
+            return switch (sortBy) {
+                case "id" -> employeeRepository.findAllByOrderByIdDesc();
+                case "firstName" -> employeeRepository.findAllByOrderByFirstNameDesc();
+                case "lastName" -> employeeRepository.findAllByOrderByLastNameDesc();
+                case "position" -> employeeRepository.findAllByOrderByPositionDesc();
+                case "department" -> employeeRepository.findAllByOrderByDepartmentDesc();
+                case "email" -> employeeRepository.findAllByOrderByEmailDesc();
+                default -> employeeRepository.findAll();
+            };
         }
     }
 }

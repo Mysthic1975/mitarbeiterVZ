@@ -36,9 +36,9 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         return "employee/view";
     }
-    @GetMapping("/sort/{sortBy}")
-    public String getAllEmployeesSortedBy(@PathVariable String sortBy, Model model) {
-        List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy);
+    @GetMapping("/sort/{sortBy}/{sortDirection}")
+    public String getAllEmployeesSortedBy(@PathVariable String sortBy, @PathVariable String sortDirection, Model model) {
+        List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection);
         model.addAttribute("employees", employees);
         return "employee/list";
     }
