@@ -24,21 +24,15 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Schleife zum Anzeigen aller Mitarbeiter -->
+
         <tr th:each="employee : ${employees}">
-            <!-- ID des Mitarbeiters -->
+
             <td th:text="${employee.id}"></td>
-            <!-- Vorname des Mitarbeiters -->
             <td th:text="${employee.firstName}"></td>
-            <!-- Nachname des Mitarbeiters -->
             <td th:text="${employee.lastName}"></td>
-            <!-- Position des Mitarbeiters -->
             <td th:text="${employee.position}"></td>
-            <!-- Abteilung des Mitarbeiters -->
             <td th:text="${employee.department}"></td>
-            <!-- E-Mail des Mitarbeiters -->
             <td th:text="${employee.email}"></td>
-            <!-- Telefonnummer des Mitarbeiters -->
             <td th:text="${employee.phoneNumber}"></td>
 
             <!-- Bearbeiten- und Löschen-Button in einer Spalte -->
@@ -51,27 +45,27 @@
         </tbody>
     </table>
 
+    <div>
+        <a th:href="@{'/employee?page=' + ${page + 1} + '&size=10'}">Vor</a>
+        <a th:href="@{'/employee?page=' + ${page - 1} + '&size=10'}">Zurück</a>
+    </div>
+
 </div>
 
 <script layout:fragment="scripts">
-    // Funktion zum Anzeigen einer Bestätigungsdialogbox, wenn der Benutzer auf den Löschen-Button klickt
+
     function confirmDelete() {
-        // Alle Löschen-Schaltflächen finden
+
         const deleteButtons = document.querySelectorAll('.delete-button');
-        // Jede Schaltfläche durchlaufen
         for (let i = 0; i < deleteButtons.length; i++) {
-            // Event-Listener zum Anzeigen der Bestätigungsdialogbox hinzufügen
             deleteButtons[i].addEventListener('click', function(event) {
-                // Bestätigungsdialogbox anzeigen
                 if (!confirm('Möchtest du diesen Mitarbeiter wirklich löschen?')) {
-                    // Wenn der Benutzer auf "Abbrechen" klickt, das Löschen verhindern
                     event.preventDefault();
                 }
             });
         }
     }
 
-    // Event-Listener zum Anzeigen der Bestätigungsdialogbox hinzufügen, wenn die Seite geladen wird
     window.addEventListener('load', confirmDelete);
 </script>
 

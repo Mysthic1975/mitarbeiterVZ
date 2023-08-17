@@ -24,9 +24,12 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public String getAllEmployees(Model model) {
-        List<EmployeeEntity> employees = employeeService.getAllEmployees();
+    public String getAllEmployees(@RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size,
+                                  Model model) {
+        List<EmployeeEntity> employees = employeeService.getAllEmployees(page, size);
         model.addAttribute("employees", employees);
+        model.addAttribute("page", page);
         return "employee/list";
     }
 
@@ -40,6 +43,7 @@ public class EmployeeController {
     public String getAllEmployeesSortedBy(@PathVariable String sortBy, @PathVariable String sortDirection, Model model) {
         List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection);
         model.addAttribute("employees", employees);
+        model.addAttribute("page", 0);
         return "employee/list";
     }
 
@@ -55,7 +59,6 @@ public class EmployeeController {
         return "redirect:/";
     }
 
-    // Endpunkt zum Anzeigen des Formulars zum Hinzufügen eines neuen Mitarbeiters
     @GetMapping("/create")
     public String showCreateEmployeeForm(Model model) {
         model.addAttribute("employee", new EmployeeEntity());
@@ -63,14 +66,12 @@ public class EmployeeController {
         return "employee/create";
     }
 
-    // Endpunkt zum Speichern eines neuen Mitarbeiters
     @PostMapping("/create")
     public String createEmployee(@ModelAttribute EmployeeEntity employee) {
         employeeService.saveEmployee(employee);
         return "redirect:/";
     }
 
-    // Endpunkt zum Anzeigen des Formulars zum Bearbeiten eines vorhandenen Mitarbeiters
     @GetMapping("/{id}/edit")
     public String showEditEmployeeForm(@PathVariable Long id, Model model) {
         EmployeeEntity employee = employeeService.getEmployeeById(id);
@@ -79,14 +80,12 @@ public class EmployeeController {
         return "employee/edit";
     }
 
-    // Endpunkt zum Speichern der Änderungen an einem vorhandenen Mitarbeiter
     @PostMapping("/{id}/edit")
     public String editEmployee(@ModelAttribute EmployeeEntity employee, @PathVariable Long id) {
         employeeService.updateEmployee(employee, id);
         return "redirect:/employee/" + id;
     }
 
-    // Endpunkt zum Löschen eines vorhandenen Mitarbeiters
     @GetMapping("/{id}/delete")
     public String deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);

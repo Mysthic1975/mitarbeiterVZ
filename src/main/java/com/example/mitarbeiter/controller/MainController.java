@@ -19,8 +19,11 @@ public class MainController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<EmployeeEntity> employees = employeeService.getAllEmployees();
+        int defaultPage = 0;
+        int defaultSize = 10;
+        List<EmployeeEntity> employees = employeeService.getAllEmployees(defaultPage, defaultSize);
         model.addAttribute("employees", employees);
+        model.addAttribute("page", defaultPage);
         return "employee/list";
     }
 

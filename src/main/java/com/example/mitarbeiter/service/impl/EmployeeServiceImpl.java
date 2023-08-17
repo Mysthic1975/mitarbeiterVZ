@@ -5,6 +5,9 @@ import com.example.mitarbeiter.repository.EmployeeRepository;
 import com.example.mitarbeiter.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -19,8 +22,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeEntity> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeEntity> getAllEmployees(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<EmployeeEntity> employeePage = employeeRepository.findAll(pageable);
+        return employeePage.getContent();
     }
 
     @Override
@@ -53,7 +58,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(employeeId);
     }
 
-    // Implementierung der Methode zum Suchen von Mitarbeitern
     @Override
     public List<EmployeeEntity> searchEmployees(String search) {
         return employeeRepository.searchEmployees(search);
