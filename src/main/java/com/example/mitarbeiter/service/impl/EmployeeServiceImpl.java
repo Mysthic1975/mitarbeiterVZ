@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
+
 import java.util.List;
 
 @Service
@@ -64,27 +65,30 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<EmployeeEntity> getAllEmployeesSortedBy(String sortBy, String sortDirection) {
+    public List<EmployeeEntity> getAllEmployeesSortedBy(String sortBy, String sortDirection, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
         if (sortDirection.equals("asc")) {
-            return switch (sortBy) {
-                case "id" -> employeeRepository.findAllByOrderByIdAsc();
-                case "firstName" -> employeeRepository.findAllByOrderByFirstNameAsc();
-                case "lastName" -> employeeRepository.findAllByOrderByLastNameAsc();
-                case "position" -> employeeRepository.findAllByOrderByPositionAsc();
-                case "department" -> employeeRepository.findAllByOrderByDepartmentAsc();
-                case "email" -> employeeRepository.findAllByOrderByEmailAsc();
-                default -> employeeRepository.findAll();
+            Page<EmployeeEntity> employeePage = switch (sortBy) {
+                case "id" -> employeeRepository.findAllByOrderByIdAsc(pageable);
+                case "firstName" -> employeeRepository.findAllByOrderByFirstNameAsc(pageable);
+                case "lastName" -> employeeRepository.findAllByOrderByLastNameAsc(pageable);
+                case "position" -> employeeRepository.findAllByOrderByPositionAsc(pageable);
+                case "department" -> employeeRepository.findAllByOrderByDepartmentAsc(pageable);
+                case "email" -> employeeRepository.findAllByOrderByEmailAsc(pageable);
+                default -> employeeRepository.findAll(pageable);
             };
+            return employeePage.getContent();
         } else {
-            return switch (sortBy) {
-                case "id" -> employeeRepository.findAllByOrderByIdDesc();
-                case "firstName" -> employeeRepository.findAllByOrderByFirstNameDesc();
-                case "lastName" -> employeeRepository.findAllByOrderByLastNameDesc();
-                case "position" -> employeeRepository.findAllByOrderByPositionDesc();
-                case "department" -> employeeRepository.findAllByOrderByDepartmentDesc();
-                case "email" -> employeeRepository.findAllByOrderByEmailDesc();
-                default -> employeeRepository.findAll();
+            Page<EmployeeEntity> employeePage = switch (sortBy) {
+                case "id" -> employeeRepository.findAllByOrderByIdDesc(pageable);
+                case "firstName" -> employeeRepository.findAllByOrderByFirstNameDesc(pageable);
+                case "lastName" -> employeeRepository.findAllByOrderByLastNameDesc(pageable);
+                case "position" -> employeeRepository.findAllByOrderByPositionDesc(pageable);
+                case "department" -> employeeRepository.findAllByOrderByDepartmentDesc(pageable);
+                case "email" -> employeeRepository.findAllByOrderByEmailDesc(pageable);
+                default -> employeeRepository.findAll(pageable);
             };
+            return employeePage.getContent();
         }
     }
 }

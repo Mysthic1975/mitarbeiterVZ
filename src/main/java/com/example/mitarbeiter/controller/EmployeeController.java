@@ -14,7 +14,7 @@ import java.util.Arrays;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private static final List<String> POSITIONS = Arrays.asList("Tester", "Entwickler", "PO", "Scrummaster");
+    private static final List<String> POSITIONS = Arrays.asList("Tester", "Entwickler", "PO", "Scrum Master");
 
     private final EmployeeService employeeService;
 
@@ -33,18 +33,22 @@ public class EmployeeController {
         return "employee/list";
     }
 
+    @GetMapping("/sort/{sortBy}/{sortDirection}")
+    public String getAllEmployeesSortedBy(@PathVariable String sortBy, @PathVariable String sortDirection,
+                                          @RequestParam(defaultValue = "0") int page,
+                                          @RequestParam(defaultValue = "10") int size,
+                                          Model model) {
+        List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection, page, size);
+        model.addAttribute("employees", employees);
+        model.addAttribute("page", page);
+        return "employee/list";
+    }
+
     @GetMapping("/{id}")
     public String getEmployeeById(@PathVariable Long id, Model model) {
         EmployeeEntity employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
         return "employee/view";
-    }
-    @GetMapping("/sort/{sortBy}/{sortDirection}")
-    public String getAllEmployeesSortedBy(@PathVariable String sortBy, @PathVariable String sortDirection, Model model) {
-        List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection);
-        model.addAttribute("employees", employees);
-        model.addAttribute("page", 0);
-        return "employee/list";
     }
 
     @PostMapping
@@ -93,9 +97,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/search")
-    public String searchEmployees(@RequestParam String search, Model model) {
+    public String searchEmployees(@RequestParam String search,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  Model model) {
         List<EmployeeEntity> employees = employeeService.searchEmployees(search);
         model.addAttribute("employees", employees);
+        model.addAttribute("page", page);
         return "employee/list";
     }
 
