@@ -27,6 +27,9 @@ public class EmployeeController {
     public String getAllEmployees(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   Model model) {
+        if (page < 0) {
+            page = 0;
+        }
         List<EmployeeEntity> employees = employeeService.getAllEmployees(page, size);
         model.addAttribute("employees", employees);
         model.addAttribute("page", page);
