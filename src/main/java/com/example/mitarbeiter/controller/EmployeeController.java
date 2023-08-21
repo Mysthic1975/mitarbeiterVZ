@@ -43,7 +43,6 @@ public class EmployeeController {
         model.addAttribute("page", employees.getNumber());
         model.addAttribute("totalPages", employees.getTotalPages());
 
-        String nextSortDirection = sortDirection.equals("asc") ? "desc" : "asc";
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("search", search);
         model.addAttribute("sortField", sortBy);
@@ -105,9 +104,8 @@ public class EmployeeController {
 
     @GetMapping("/search")
     public String searchEmployees(@RequestParam String search,
-                                  @RequestParam(defaultValue = "0") int page,
                                   Model model) {
-        Pageable pageable = Pageable.ofSize(10); // Anpassen der Seitennummer und Größe
+        Pageable pageable = Pageable.ofSize(10);
 
         Page<EmployeeEntity> employees = employeeService.searchEmployees(search, pageable);
         model.addAttribute("employees", employees.getContent());

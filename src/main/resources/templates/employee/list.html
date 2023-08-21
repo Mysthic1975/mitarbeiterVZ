@@ -22,6 +22,7 @@
     <h1 class="my-4">Mitarbeiterverwaltung</h1>
 
     <table class="table table-striped table-bordered">
+
         <thead>
         <tr>
             <th>
@@ -33,33 +34,37 @@
                     <i class="material-icons" th:classappend="${sortField == 'id' && sortDirection == 'desc' ? 'sortedBy' : 'falsche' }">arrow_downward</i>
                 </a>
             </th>
+
             <th>
                 Vorname
                 <a th:href="@{/employee(page=${page},sortBy='firstName',sortDirection='asc',search=${search})}">
                     <i class="material-icons" th:classappend="${sortField == 'firstName' && sortDirection == 'asc' ? 'sortedBy' : 'falsche'}">arrow_upward</i>
                 </a>
-                <<a th:href="@{/employee(page=${page},sortBy='firstName',sortDirection='desc',search=${search})}">
-                <i class="material-icons" th:classappend="${sortField == 'firstName' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
+                <a th:href="@{/employee(page=${page},sortBy='firstName',sortDirection='desc',search=${search})}">
+                    <i class="material-icons" th:classappend="${sortField == 'firstName' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
                 </a>
             </th>
+
             <th>
                 Nachname
                 <a th:href="@{/employee(page=${page},sortBy='lastName',sortDirection='asc',search=${search})}">
                     <i class="material-icons" th:classappend="${sortField == 'lastName' && sortDirection == 'asc' ? 'sortedBy' : 'falsche'}">arrow_upward</i>
                 </a>
-                <<a th:href="@{/employee(page=${page},sortBy='lastName',sortDirection='desc',search=${search})}">
-                <i class="material-icons" th:classappend="${sortField == 'lastName' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
+                <a th:href="@{/employee(page=${page},sortBy='lastName',sortDirection='desc',search=${search})}">
+                    <i class="material-icons" th:classappend="${sortField == 'lastName' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
             </a>
             </th>
+
             <th>
                 Position
                 <a th:href="@{/employee(page=${page},sortBy='position',sortDirection='asc',search=${search})}">
                     <i class="material-icons" th:classappend="${sortField == 'position' && sortDirection == 'asc' ? 'sortedBy' : 'falsche'}">arrow_upward</i>
                 </a>
-                <<a th:href="@{/employee(page=${page},sortBy='position',sortDirection='desc',search=${search})}">
-                <i class="material-icons" th:classappend="${sortField == 'position' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
+                <a th:href="@{/employee(page=${page},sortBy='position',sortDirection='desc',search=${search})}">
+                    <i class="material-icons" th:classappend="${sortField == 'position' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
             </a>
             </th>
+
             <th>
                 Abteilung
                 <a th:href="@{/employee(page=${page},sortBy='department',sortDirection='asc',search=${search})}">
@@ -69,6 +74,7 @@
                     <i class="material-icons" th:classappend="${sortField == 'department' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
                 </a>
             </th>
+
             <th>
                 E-Mail
                 <a th:href="@{/employee(page=${page},sortBy='email',sortDirection='asc',search=${search})}">
@@ -78,8 +84,11 @@
                     <i class="material-icons" th:classappend="${sortField == 'email' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
                 </a>
             </th>
+
             <th>Telefonnummer</th>
+
             <th></th>
+
         </tr>
         </thead>
         <tbody>
@@ -94,7 +103,6 @@
             <td th:text="${employee.email}"></td>
             <td th:text="${employee.phoneNumber}"></td>
 
-            <!-- Bearbeiten- und Löschen-Button in einer Spalte -->
             <td class="text-center">
                 <a th:href="@{/employee/{id}/edit(id=${employee.id})}" class="btn btn-icon-small"><i class="material-icons">edit</i></a>
                 <a th:href="@{/employee/{id}/delete(id=${employee.id})}" class="btn btn-icon-small delete-button"><i class="material-icons text-danger">delete</i></a>
@@ -105,10 +113,19 @@
     </table>
 
     <div>
+        <a th:if="${page > 0}" th:href="@{/employee(page=0,sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Erste Seite</a>
         <a th:if="${page > 0}" th:href="@{/employee(page=${page - 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Zurück</a>
-        <a th:href="@{/employee(page=${page + 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Vor</a>
-    </div>
 
+        <span th:each="pageIndex : ${#numbers.sequence(0, totalPages - 1)}">
+        <a th:href="@{/employee(page=${pageIndex},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}"
+           th:classappend="${pageIndex == page ? 'current-page' : ''}"
+           th:text="${pageIndex + 1}">
+        </a>
+    </span>
+
+        <a th:if="${page < totalPages - 1}" th:href="@{/employee(page=${page + 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Vor</a>
+        <a th:if="${page < totalPages - 1}" th:href="@{/employee(page=${totalPages - 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Letzte Seite</a>
+    </div>
 </div>
 
 <script layout:fragment="scripts">
