@@ -23,8 +23,16 @@
             }
         }
 
-        table .material-icons {
-            color: black;
+        table {
+            & thead th a {
+                text-decoration: none;
+            }
+            .material-icons {
+                color: black;
+                &.sortedBy {
+                    color: green;
+                }
+            }
         }
     </style>
 </head>
@@ -44,12 +52,14 @@
                 </li>
             </ul>
             <!-- Suchformular -->
-            <form class="d-flex" action="#" th:action="@{/employee/search}" method="get">
-                <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-                    <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i></button>
-                </div>
-            </form>
+            <div layout:fragment="topSearch">
+                <form class="d-flex" action="#" th:action="@{/employee/search}" method="get">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i></button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </nav>

@@ -3,9 +3,13 @@ package com.example.mitarbeiter.controller;
 import com.example.mitarbeiter.entity.EmployeeEntity;
 import com.example.mitarbeiter.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 import java.util.Arrays;
@@ -26,24 +30,24 @@ public class EmployeeController {
     @GetMapping
     public String getAllEmployees(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(defaultValue = "id") String sortBy,
+                                  @RequestParam(defaultValue = "asc") String sortDirection,
+                                  @RequestParam(defaultValue = "") String search,
                                   Model model) {
-        if (page < 0) {
-            page = 0;
-        }
-        List<EmployeeEntity> employees = employeeService.getAllEmployees(page, size);
-        model.addAttribute("employees", employees);
-        model.addAttribute("page", page);
-        return "employee/list";
-    }
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortBy);
+        Page<EmployeeEntity> employees = employeeService.searchEmployees(search, pageRequest);
+//        Page<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection, page, size);
 
-    @GetMapping("/sort/{sortBy}/{sortDirection}")
-    public String getAllEmployeesSortedBy(@PathVariable String sortBy, @PathVariable String sortDirection,
-                                          @RequestParam(defaultValue = "0") int page,
-                                          @RequestParam(defaultValue = "10") int size,
-                                          Model model) {
-        List<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection, page, size);
-        model.addAttribute("employees", employees);
-        model.addAttribute("page", page);
+        model.addAttribute("employees", employees.getContent());
+
+        model.addAttribute("page", employees.getNumber());
+        model.addAttribute("totalPages", employees.getTotalPages());
+
+        String nextSortDirection = sortDirection.equals("asc") ? "desc" : "asc";
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("search", search);
+        model.addAttribute("sortField", sortBy);
+
         return "employee/list";
     }
 
@@ -103,9 +107,11 @@ public class EmployeeController {
     public String searchEmployees(@RequestParam String search,
                                   @RequestParam(defaultValue = "0") int page,
                                   Model model) {
-        List<EmployeeEntity> employees = employeeService.searchEmployees(search);
-        model.addAttribute("employees", employees);
-        model.addAttribute("page", page);
+        Pageable pageable = Pageable.ofSize(10); // Anpassen der Seitennummer und Größe
+
+        Page<EmployeeEntity> employees = employeeService.searchEmployees(search, pageable);
+        model.addAttribute("employees", employees.getContent());
+        model.addAttribute("page", employees.getNumber());
         return "employee/list";
     }
 

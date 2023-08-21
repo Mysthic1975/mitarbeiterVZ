@@ -31,27 +31,12 @@ public class EmployeeEntity {
     @Column
     private String profilePicture;
 
-    public EmployeeEntity(Long id, String firstName, String lastName, String position, String department, String email, String phoneNumber, String profilePicture) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.position = position;
-        this.department = department;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.profilePicture = profilePicture;
-    }
-
     public EmployeeEntity() {
 
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
