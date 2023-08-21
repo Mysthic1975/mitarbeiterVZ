@@ -45,11 +45,23 @@
           <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" />
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Mitarbeiter anlegen</button>
+
+      <!-- Mitarbeiter anlegen Button unter den Eingabefeldern -->
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Mitarbeiter anlegen</button>
+      </div>
     </form>
+
+    <!-- Zurück-Button links unter dem Mitarbeiter anlegen Button -->
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <a th:href="@{/}" class="btn btn-primary btn-lg btn-block"><i class="material-icons" style="vertical-align: middle;">arrow_back</i> Zurück zur Startseite</a>
+      </div>
+    </div>
   </div>
 
 </div>
 
 </body>
 </html>
+

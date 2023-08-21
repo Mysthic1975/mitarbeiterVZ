@@ -113,7 +113,7 @@
     </table>
 
     <div>
-        <a th:if="${page > 0}" th:href="@{/employee(page=0,sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Erste Seite</a>
+        <a th:if="${page > 0}" th:href="@{/employee(page=0,sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">erste Seite</a>
         <a th:if="${page > 0}" th:href="@{/employee(page=${page - 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Zurück</a>
 
         <span th:each="pageIndex : ${#numbers.sequence(0, totalPages - 1)}">
@@ -124,7 +124,7 @@
     </span>
 
         <a th:if="${page < totalPages - 1}" th:href="@{/employee(page=${page + 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Vor</a>
-        <a th:if="${page < totalPages - 1}" th:href="@{/employee(page=${totalPages - 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">Letzte Seite</a>
+        <a th:if="${page < totalPages - 1}" th:href="@{/employee(page=${totalPages - 1},sortBy=${sortField},sortDirection=${sortDirection},search=${search})}">letzte Seite</a>
     </div>
 </div>
 

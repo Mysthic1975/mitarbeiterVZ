@@ -18,7 +18,7 @@ import java.util.Arrays;
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private static final List<String> POSITIONS = Arrays.asList("Tester", "Entwickler", "PO", "Scrum Master");
+    private static final List<String> POSITIONS = Arrays.asList("Tester", "Entwickler", "PO", "Scrum Master"); //TODO: in db
 
     private final EmployeeService employeeService;
 
