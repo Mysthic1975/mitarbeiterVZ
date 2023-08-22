@@ -57,11 +57,11 @@
 
             <th>
                 Position
-                <a th:href="@{/employee(page=${page},sortBy='position',sortDirection='asc',search=${search})}">
-                    <i class="material-icons" th:classappend="${sortField == 'position' && sortDirection == 'asc' ? 'sortedBy' : 'falsche'}">arrow_upward</i>
+                <a th:href="@{/employee(page=${page},sortBy='position.name',sortDirection='asc',search=${search})}">
+                    <i class="material-icons" th:classappend="${sortField == 'position.name' && sortDirection == 'asc' ? 'sortedBy' : 'falsche'}">arrow_upward</i>
                 </a>
-                <a th:href="@{/employee(page=${page},sortBy='position',sortDirection='desc',search=${search})}">
-                    <i class="material-icons" th:classappend="${sortField == 'position' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
+                <a th:href="@{/employee(page=${page},sortBy='position.name',sortDirection='desc',search=${search})}">
+                    <i class="material-icons" th:classappend="${sortField == 'position.name' && sortDirection == 'desc' ? 'sortedBy' : 'falsche'}">arrow_downward</i>
             </a>
             </th>
 
