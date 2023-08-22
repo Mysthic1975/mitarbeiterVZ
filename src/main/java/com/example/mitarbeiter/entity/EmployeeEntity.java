@@ -16,8 +16,8 @@ public class EmployeeEntity {
     @Column
     private String lastName;
 
-    @Column
-    private String position;
+    @ManyToOne
+    private PositionEntity position;
 
     @Column
     private String department;
@@ -55,11 +55,11 @@ public class EmployeeEntity {
         this.lastName = lastName;
     }
 
-    public String getPosition() {
+    public PositionEntity getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(PositionEntity position) {
         this.position = position;
     }
 

@@ -1,7 +1,9 @@
 package com.example.mitarbeiter.controller;
 
 import com.example.mitarbeiter.entity.EmployeeEntity;
+import com.example.mitarbeiter.entity.PositionEntity;
 import com.example.mitarbeiter.service.EmployeeService;
+import com.example.mitarbeiter.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -12,37 +14,42 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
-import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
 
-    private static final List<String> POSITIONS = Arrays.asList("Tester", "Entwickler", "PO", "Scrum Master"); //TODO: in db
-
     private final EmployeeService employeeService;
+    private final PositionService positionService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService, PositionService positionService) {
         this.employeeService = employeeService;
+        this.positionService = positionService;
     }
 
     @GetMapping
-    public String getAllEmployees(@RequestParam(defaultValue = "0") int page,
+    public String getAllEmployees(Model model,
+                                  @RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size,
                                   @RequestParam(defaultValue = "id") String sortBy,
                                   @RequestParam(defaultValue = "asc") String sortDirection,
-                                  @RequestParam(defaultValue = "") String search,
-                                  Model model) {
-        PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.fromString(sortDirection), sortBy);
-        Page<EmployeeEntity> employees = employeeService.searchEmployees(search, pageRequest);
-//        Page<EmployeeEntity> employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection, page, size);
+                                  @RequestParam(required = false) String search) {
+
+        Page<EmployeeEntity> employees;
+
+        if (search != null) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection.equals("asc") ? Sort.Order.asc(sortBy) : Sort.Order.desc(sortBy)));
+            employees = employeeService.searchEmployees(search, pageable);
+        } else {
+            employees = employeeService.getAllEmployeesSortedBy(sortBy, sortDirection, page, size);
+        }
+
 
         model.addAttribute("employees", employees.getContent());
-
         model.addAttribute("page", employees.getNumber());
         model.addAttribute("totalPages", employees.getTotalPages());
-
         model.addAttribute("sortDirection", sortDirection);
         model.addAttribute("search", search);
         model.addAttribute("sortField", sortBy);
@@ -72,7 +79,10 @@ public class EmployeeController {
     @GetMapping("/create")
     public String showCreateEmployeeForm(Model model) {
         model.addAttribute("employee", new EmployeeEntity());
-        model.addAttribute("positions", POSITIONS);
+
+        List<PositionEntity> positions = positionService.getAllPositions();
+        model.addAttribute("positions", positions);
+
         return "employee/create";
     }
 
@@ -86,7 +96,10 @@ public class EmployeeController {
     public String showEditEmployeeForm(@PathVariable Long id, Model model) {
         EmployeeEntity employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
-        model.addAttribute("positions", POSITIONS);
+
+        List<PositionEntity> positions = positionService.getAllPositions();
+        model.addAttribute("positions", positions);
+
         return "employee/edit";
     }
 
@@ -112,5 +125,4 @@ public class EmployeeController {
         model.addAttribute("page", employees.getNumber());
         return "employee/list";
     }
-
 }

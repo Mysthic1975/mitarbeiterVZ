@@ -32,7 +32,7 @@
                     <label for="position">Position</label>
                     <select class="form-control" id="position" th:field="*{position}">
                         <option value="">--Bitte wählen--</option>
-                        <option th:each="position : ${positions}" th:value="${position}" th:text="${position}" th:selected="${employee.position == position}"></option>
+                        <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
                     </select>
                 </div>
             </div>
