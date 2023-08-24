@@ -1,7 +1,7 @@
 package com.example.mitarbeiter.service.impl;
 
+import com.example.mitarbeiter.entity.ProfilePictureEntity;
 import com.example.mitarbeiter.entity.EmployeeEntity;
-import com.example.mitarbeiter.entity.PositionEntity;
 import com.example.mitarbeiter.repository.EmployeeRepository;
 import com.example.mitarbeiter.service.EmployeeService;
 import com.example.mitarbeiter.service.PositionService;
@@ -12,19 +12,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Collections;
+
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeRepository employeeRepository;
-    private final PositionService positionService; // Hinzufügen
 
     @Autowired
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, PositionService positionService) {
         this.employeeRepository = employeeRepository;
-        this.positionService = positionService; // Initialisieren
+        // Hinzufügen
     }
 
     @Override
@@ -60,7 +59,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             existingEmployee.setDepartment(employee.getDepartment());
             existingEmployee.setEmail(employee.getEmail());
             existingEmployee.setPhoneNumber(employee.getPhoneNumber());
-            existingEmployee.setProfilePicture(employee.getProfilePicture());
+
+            // Update profile picture if provided
+            if (employee.getProfilePictures() != null && !employee.getProfilePictures().isEmpty()) {
+                ProfilePictureEntity profilePicture = employee.getProfilePictures().get(0);
+                profilePicture.setEmployee(existingEmployee);
+
+                // Set the profile pictures list to contain only the updated profile picture
+                existingEmployee.setProfilePictures(Collections.singletonList(profilePicture));
+            }
+
             employeeRepository.save(existingEmployee);
         }
     }
@@ -73,13 +81,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Page<EmployeeEntity> searchEmployees(String search, Pageable pageable) {
         return employeeRepository.searchEmployees(search, pageable);
-    }
-
-    public List<String> getPositionNamesByIds(List<Long> positionIds) {
-        return positionIds.stream()
-                .map(positionService::getPositionById)
-                .map(PositionEntity::getName)
-                .collect(Collectors.toList());
     }
 
 }

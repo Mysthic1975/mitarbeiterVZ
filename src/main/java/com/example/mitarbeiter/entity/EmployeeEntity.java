@@ -1,6 +1,8 @@
 package com.example.mitarbeiter.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "employee", schema = "public")
@@ -28,8 +30,8 @@ public class EmployeeEntity {
     @Column
     private String phoneNumber;
 
-    @Column
-    private String profilePicture;
+    @OneToMany(mappedBy = "employee")
+    private List<ProfilePictureEntity> profilePictures = new ArrayList<>();
 
     public EmployeeEntity() {
 
@@ -87,12 +89,11 @@ public class EmployeeEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public List<ProfilePictureEntity> getProfilePictures() {
+        return profilePictures;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setProfilePictures(List<ProfilePictureEntity> profilePictures) {
+        this.profilePictures = profilePictures;
     }
-
 }
