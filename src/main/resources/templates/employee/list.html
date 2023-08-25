@@ -104,6 +104,7 @@
             <td th:text="${employee.phoneNumber}"></td>
 
             <td class="text-center">
+                <a th:href="@{/employee/{id}(id=${employee.id})}" class="btn btn-icon-small"><i class="material-icons">visibility</i></a>
                 <a th:href="@{/employee/{id}/edit(id=${employee.id})}" class="btn btn-icon-small"><i class="material-icons">edit</i></a>
                 <a th:href="@{/employee/{id}/delete(id=${employee.id})}" class="btn btn-icon-small delete-button"><i class="material-icons text-danger">delete</i></a>
             </td>
