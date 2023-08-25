@@ -2,19 +2,25 @@ package com.example.mitarbeiter.controller;
 
 import com.example.mitarbeiter.entity.EmployeeEntity;
 import com.example.mitarbeiter.entity.PositionEntity;
+import com.example.mitarbeiter.entity.ProfilePictureEntity;
 import com.example.mitarbeiter.service.EmployeeService;
 import com.example.mitarbeiter.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/employee")
@@ -64,15 +70,10 @@ public class EmployeeController {
         return "employee/view";
     }
 
+
     @PostMapping
     public String saveEmployee(@ModelAttribute EmployeeEntity employee) {
         employeeService.saveEmployee(employee);
-        return "redirect:/";
-    }
-
-    @PutMapping("/{id}")
-    public String updateEmployee(@ModelAttribute EmployeeEntity employee, @PathVariable Long id) {
-        employeeService.updateEmployee(employee, id);
         return "redirect:/";
     }
 
@@ -93,6 +94,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}/edit")
+    @Transactional
     public String showEditEmployeeForm(@PathVariable Long id, Model model) {
         EmployeeEntity employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
@@ -100,13 +102,39 @@ public class EmployeeController {
         List<PositionEntity> positions = positionService.getAllPositions();
         model.addAttribute("positions", positions);
 
+        String base64Code = null;
+        if (employee.getProfilePicture() != null) {
+            base64Code = employee.getProfilePicture().getPictureBase64Encoded();
+        }
+        model.addAttribute("imageBase64Src", base64Code);
+
         return "employee/edit";
     }
 
     @PostMapping("/{id}/edit")
-    public String editEmployee(@ModelAttribute EmployeeEntity employee, @PathVariable Long id) {
-        employeeService.updateEmployee(employee, id);
+    public String editEmployee(
+            @PathVariable Long id,
+            @ModelAttribute EmployeeEntity employee,
+            @RequestParam("picture") MultipartFile pictureFile
+    ) {
+        employeeService.updateEmployee(employee, id, pictureFile);
         return "redirect:/employee/" + id;
+    }
+
+    @GetMapping(value = "/{id}/profile-picture", produces = MediaType.IMAGE_JPEG_VALUE)
+    @Transactional
+    public @ResponseBody byte[] getEmployeeProfilePicture(@PathVariable Long id) {
+        ProfilePictureEntity image = employeeService.getEmployeeById(id).getProfilePicture();
+        if (image != null) {
+            try {
+                return image.getPictureData().getBinaryStream().readAllBytes();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        throw new RuntimeException("no image");
     }
 
     @GetMapping("/{id}/delete")

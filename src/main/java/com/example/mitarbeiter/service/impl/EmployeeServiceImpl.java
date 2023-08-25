@@ -5,15 +5,14 @@ import com.example.mitarbeiter.entity.EmployeeEntity;
 import com.example.mitarbeiter.repository.EmployeeRepository;
 import com.example.mitarbeiter.service.EmployeeService;
 import com.example.mitarbeiter.service.PositionService;
+import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-
-import java.util.Collections;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -50,7 +49,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void updateEmployee(EmployeeEntity employee, Long employeeId) {
+    public void updateEmployee(EmployeeEntity employee, Long employeeId, MultipartFile pictureFile) {
         EmployeeEntity existingEmployee = employeeRepository.findById(employeeId).orElse(null);
         if (existingEmployee != null) {
             existingEmployee.setFirstName(employee.getFirstName());
@@ -60,14 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             existingEmployee.setEmail(employee.getEmail());
             existingEmployee.setPhoneNumber(employee.getPhoneNumber());
 
-            // Update profile picture if provided
-            if (employee.getProfilePictures() != null && !employee.getProfilePictures().isEmpty()) {
-                ProfilePictureEntity profilePicture = employee.getProfilePictures().get(0);
-                profilePicture.setEmployee(existingEmployee);
-
-                // Set the profile pictures list to contain only the updated profile picture
-                existingEmployee.setProfilePictures(Collections.singletonList(profilePicture));
-            }
+            updateProfilePicture(existingEmployee, pictureFile);
 
             employeeRepository.save(existingEmployee);
         }
@@ -83,6 +75,24 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.searchEmployees(search, pageable);
     }
 
+    private void updateProfilePicture(EmployeeEntity employee, MultipartFile pictureFile) {
+        try {
+            byte[] pictureData = pictureFile.getBytes();
+            ProfilePictureEntity profilePicture = employee.getProfilePicture();
+            if (profilePicture == null) {
+                profilePicture = new ProfilePictureEntity();
+                profilePicture.setEmployee(employee);
+                employee.setProfilePicture(profilePicture);
+            }
+
+            // Erstelle ein neues ProfilePictureEntity
+            profilePicture.setPictureData(BlobProxy.generateProxy(pictureData));
+        } catch (Exception e) {
+            // Handle die IOException, falls eine auftritt
+            e.printStackTrace();
+        }
+    }
 }
+
 
 

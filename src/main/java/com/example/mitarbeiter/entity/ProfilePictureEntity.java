@@ -2,6 +2,11 @@ package com.example.mitarbeiter.entity;
 
 import jakarta.persistence.*;
 
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.Base64;
+
 @Entity
 @Table(name = "profile_picture", schema = "public")
 public class ProfilePictureEntity {
@@ -12,10 +17,9 @@ public class ProfilePictureEntity {
 
     @Lob
     @Column(name = "picture_data", nullable = false)
-    private byte[] pictureData;
+    private Blob pictureData;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    @OneToOne
     private EmployeeEntity employee;
 
     public ProfilePictureEntity() {
@@ -26,11 +30,21 @@ public class ProfilePictureEntity {
         return id;
     }
 
-    public byte[] getPictureData() {
+    public Blob getPictureData() {
         return pictureData;
     }
 
-    public void setPictureData(byte[] pictureData) {
+    public String getPictureBase64Encoded() {
+        try {
+            return Base64.getEncoder().encodeToString(pictureData.getBinaryStream().readAllBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void setPictureData(Blob pictureData) {
         this.pictureData = pictureData;
     }
 
