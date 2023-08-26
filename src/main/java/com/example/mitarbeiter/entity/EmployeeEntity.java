@@ -7,7 +7,6 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "employee", schema = "public")
 public class EmployeeEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,8 +29,8 @@ public class EmployeeEntity {
     @Column
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "employee")
-    private List<ProfilePictureEntity> profilePictures = new ArrayList<>();
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private ProfilePictureEntity profilePicture;
 
     public EmployeeEntity() {
 
@@ -89,11 +88,11 @@ public class EmployeeEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<ProfilePictureEntity> getProfilePictures() {
-        return profilePictures;
+    public ProfilePictureEntity getProfilePicture() {
+        return profilePicture;
     }
 
-    public void setProfilePictures(List<ProfilePictureEntity> profilePictures) {
-        this.profilePictures = profilePictures;
+    public void setProfilePicture(ProfilePictureEntity profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }
