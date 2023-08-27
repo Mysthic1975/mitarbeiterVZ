@@ -153,4 +153,12 @@ public class EmployeeController {
         model.addAttribute("page", employees.getNumber());
         return "employee/list";
     }
-}
+
+         @GetMapping("/{id}/delete-picture")
+     public String deleteEmployeePicture(@PathVariable Long id) {
+         employeeService.deleteEmployeePicture(id);
+         return "redirect:/employee/" + id + "/edit";
+     }
+ }
+
+

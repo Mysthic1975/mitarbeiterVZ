@@ -70,6 +70,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(employeeId);
     }
 
+         @Override
+     public void deleteEmployeePicture(Long employeeId) {
+         EmployeeEntity employee = employeeRepository.findById(employeeId).orElse(null);
+         if (employee != null) {
+             employee.setProfilePicture(null);
+             employeeRepository.save(employee);
+         }
+     }
+
     @Override
     public Page<EmployeeEntity> searchEmployees(String search, Pageable pageable) {
         return employeeRepository.searchEmployees(search, pageable);
