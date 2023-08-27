@@ -24,68 +24,56 @@
         <form action="#" th:action="@{/employee/{id}/edit(id=${employee.id})}" th:object="${employee}" method="post" enctype="multipart/form-data">
             <!-- Verstecktes Feld für die ID des Mitarbeiters -->
             <input type="hidden" th:field="*{id}" />
-            <div class="form-group">
+            <div class="row">
                 <div class="col-md-6">
-                    <label for="firstName">Vorname</label>
-                    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                    <div class="form-group">
+                        <label for="firstName">Vorname</label>
+                        <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Nachname</label>
+                        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <select class="form-control" id="position" th:field="*{position}">
+                            <option value="">--Bitte wählen--</option>
+                            <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Abteilung</label>
+                        <input type="text" class="form-control" id="department" th:field="*{department}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneNumber">Telefonnummer</label>
+                        <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
                 <div class="col-md-6">
-                    <label for="lastName">Nachname</label>
-                    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                    <div class="text-center">
+                        <div th:if="${imageBase64Src != null}">
+                            <img alt="Profilbild" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" th:src="@{/employee/{id}/profile-picture(id=${employee.id})}">
+                            <br>
+                            <div class="mt-2">
+                                <input type="file" id="picture" name="picture" accept="image/*" style="display: none;" />
+                                <label for="picture" class="btn btn-secondary" style="display: inline-block;"><i class="material-icons">add</i></label>
+                                <a th:href="@{/employee/{id}/delete-picture(id=${employee.id})}" class="btn btn-danger ml-2" style="display: inline-block;"><i class="material-icons">delete</i></a>
+                            </div>
+                        </div>
+                        <div th:unless="${imageBase64Src}">
+                            <p>Kein Profilbild vorhanden.</p>
+                            <div class="mt-2">
+                                <input type="file" id="picture1" name="picture1" accept="image/*" style="display: none;" />
+                                <label for="picture" class="btn btn-secondary" style="display: inline-block;"><i class="material-icons">add</i></label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label for="position">Position</label>
-                    <select class="form-control" id="position" th:field="*{position}">
-                        <option value="">--Bitte wählen--</option>
-                        <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label for="department">Abteilung</label>
-                    <input type="text" class="form-control" id="department" th:field="*{department}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label for="email">E-Mail</label>
-                    <input type="email" class="form-control" id="email" th:field="*{email}" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label for="phoneNumber">Telefonnummer</label>
-                    <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" />
-                </div>
-            </div>
-
-            <!-- Bereich zum Anzeigen des aktuellen Profilbilds -->
-            <div class="text-center my-4">
-                <h2>Aktuelles Profilbild</h2>
-                <div th:if="${imageBase64Src != null}">
-<!--                    <img alt="Profilbild"-->
-<!--                         class="img-thumbnail" style="max-width: 200px; max-height: 200px;"-->
-<!--                         th:src="@{'data:image/jpeg;base64,' + ${imageBase64Src}}">-->
-                    <img alt="Profilbild"
-                         class="img-thumbnail" style="max-width: 200px; max-height: 200px;"
-                         th:src="@{/employee/{id}/profile-picture(id=${employee.id})}">
-                    <br>
-                    <a th:href="@{/employee/{id}/delete-picture(id=${employee.id})}" class="btn btn-danger mt-2">Bild löschen</a>
-                </div>
-                <div th:unless="${imageBase64Src == null}">
-                    <p>Kein Profilbild vorhanden.</p>
-                </div>
-            </div>
-
-            <!-- Bereich zum Hochladen eines neuen Profilbilds -->
-            <div class="form-group">
-                <label for="picture">Neues Profilbild hochladen</label>
-                <input type="file" class="form-control-file" id="picture" name="picture" accept="image/*">
             </div>
 
             <div class="text-center mt-3">
@@ -93,14 +81,7 @@
                 <a th:href="@{/}" class="btn btn-secondary ml-2"><i class="material-icons align-middle">arrow_back</i> Zurück zur Startseite</a>
             </div>
         </form>
-
     </div>
-
 </div>
 </body>
 </html>
-
-
-
-
-
