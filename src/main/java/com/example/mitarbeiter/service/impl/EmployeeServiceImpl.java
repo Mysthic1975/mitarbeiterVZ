@@ -70,14 +70,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(employeeId);
     }
 
-         @Override
-     public void deleteEmployeePicture(Long employeeId) {
-         EmployeeEntity employee = employeeRepository.findById(employeeId).orElse(null);
-         if (employee != null) {
-             employee.setProfilePicture(null);
-             employeeRepository.save(employee);
-         }
-     }
+    @Override
+    public void deleteEmployeePicture(Long id) {
+        EmployeeEntity employee = employeeRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid employee Id:" + id));
+        employee.setProfilePicture(null);
+        employeeRepository.save(employee);
+    }
+
 
     @Override
     public Page<EmployeeEntity> searchEmployees(String search, Pageable pageable) {
@@ -102,6 +101,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

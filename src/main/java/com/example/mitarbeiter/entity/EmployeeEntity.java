@@ -29,7 +29,7 @@ public class EmployeeEntity {
     @Column
     private String phoneNumber;
 
-    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private ProfilePictureEntity profilePicture;
 
     public EmployeeEntity() {

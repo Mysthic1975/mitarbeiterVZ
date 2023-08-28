@@ -7,27 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PositionServiceImpl implements PositionService {
+
 
     private final PositionRepository positionRepository;
 
     @Autowired
     public PositionServiceImpl(PositionRepository positionRepository) {
         this.positionRepository = positionRepository;
-    }
-
-    @Override
-    public List<String> getPositionNamesByIds(List<Long> positionIds) {
-        List<PositionEntity> positions = positionIds.stream()
-                .map(this::getPositionById)
-                .collect(Collectors.toList());
-
-        return positions.stream()
-                .map(PositionEntity::getName)
-                .collect(Collectors.toList());
     }
 
     @Override

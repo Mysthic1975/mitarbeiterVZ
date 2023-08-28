@@ -13,5 +13,5 @@ public interface EmployeeService {
     void saveEmployee(EmployeeEntity employee);
     void updateEmployee(EmployeeEntity employee, Long employeeId, MultipartFile pictureFile);
     void deleteEmployee(Long employeeId);
-    void deleteEmployeePicture(Long employeeId);
+    void deleteEmployeePicture(Long id);
 }

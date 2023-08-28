@@ -9,6 +9,5 @@ public interface PositionService {
     void savePosition(PositionEntity position);
     void updatePosition(PositionEntity position, Long id);
     void deletePosition(Long id);
-    List<String> getPositionNamesByIds(List<Long> positionIds);
 }
 

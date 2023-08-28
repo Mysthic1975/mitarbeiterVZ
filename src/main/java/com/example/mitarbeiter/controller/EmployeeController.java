@@ -6,21 +6,20 @@ import com.example.mitarbeiter.entity.ProfilePictureEntity;
 import com.example.mitarbeiter.service.EmployeeService;
 import com.example.mitarbeiter.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/employee")
@@ -128,9 +127,7 @@ public class EmployeeController {
         if (image != null) {
             try {
                 return image.getPictureData().getBinaryStream().readAllBytes();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (SQLException e) {
+            } catch (IOException | SQLException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -154,11 +151,14 @@ public class EmployeeController {
         return "employee/list";
     }
 
-         @GetMapping("/{id}/delete-picture")
-     public String deleteEmployeePicture(@PathVariable Long id) {
-         employeeService.deleteEmployeePicture(id);
-         return "redirect:/employee/" + id + "/edit";
-     }
- }
+    @GetMapping("/{id}/delete-picture")
+    public String deleteProfilePicture(@PathVariable("id") Long id) {
+        employeeService.deleteEmployeePicture(id);
+        return "redirect:/employee/" + id + "/edit";
+    }
+
+}
+
+
 
 
