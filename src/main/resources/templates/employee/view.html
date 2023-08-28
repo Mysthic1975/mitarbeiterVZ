@@ -10,7 +10,9 @@
     <form class="d-flex" action="#" th:action="@{/employee}" method="get">
         <div class="input-group">
             <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i></button>
+            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons"
+                                                                       style="color: black; border: none;">search</i>
+            </button>
         </div>
     </form>
 </div>
@@ -67,7 +69,7 @@
         </div>
 
         <!-- Zurück-Button links unter dem Bearbeiten-Button -->
-        <div class="text-center mt-3">
+        <div class="d-flex justify-content-between align-items-center mt-3">
             <a th:href="@{/}" class="btn btn-secondary ml-2"><i class="material-icons align-middle">arrow_back</i>
                 Zurück zur Startseite</a>
         </div>

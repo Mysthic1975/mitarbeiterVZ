@@ -11,8 +11,11 @@
         <div class="input-group">
             <input type="hidden" name="sortBy" th:value="${sortField}"/>
             <input type="hidden" name="sortDirection" th:value="${sortDirection}"/>
-            <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i></button>
+            <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search"
+                   th:value="${search}" />
+            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons"
+                                                                       style="color: black; border: none;">search</i>
+            </button>
         </div>
     </form>
 </div>

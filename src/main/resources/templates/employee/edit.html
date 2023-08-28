@@ -10,7 +10,9 @@
     <form class="d-flex" action="#" th:action="@{/employee}" method="get">
         <div class="input-group">
             <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i></button>
+            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons"
+                                                                       style="color: black; border: none;">search</i>
+            </button>
         </div>
     </form>
 </div>
@@ -21,7 +23,8 @@
         <h1 class="my-4">Mitarbeiter bearbeiten</h1>
 
         <!-- Bearbeiten-Formular -->
-        <form action="#" th:action="@{/employee/{id}/edit(id=${employee.id})}" th:object="${employee}" method="post" enctype="multipart/form-data">
+        <form action="#" th:action="@{/employee/{id}/edit(id=${employee.id})}" th:object="${employee}" method="post"
+              enctype="multipart/form-data">
 
             <!-- Verstecktes Feld für die ID des Mitarbeiters -->
             <input type="hidden" th:field="*{id}"/>
@@ -82,10 +85,10 @@
                 </div>
             </div>
 
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary">Änderungen speichern</button>
-                <a th:href="@{/}" class="btn btn-secondary ml-2"><i class="material-icons align-middle">arrow_back</i>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <a th:href="@{/}" class="btn btn-secondary"><i class="material-icons align-middle">arrow_back</i>
                     Zurück zur Startseite</a>
+                <button type="submit" class="btn btn-primary ml-2">Änderungen speichern</button>
             </div>
         </form>
     </div>
