@@ -114,9 +114,13 @@ public class EmployeeController {
     public String editEmployee(
             @PathVariable Long id,
             @ModelAttribute EmployeeEntity employee,
-            @RequestParam("picture") MultipartFile pictureFile
+            @RequestParam(name = "picture", required = false) MultipartFile pictureFile
     ) {
-        employeeService.updateEmployee(employee, id, pictureFile);
+        if (pictureFile != null && !pictureFile.isEmpty()) {
+            employeeService.updateEmployee(employee, id, pictureFile);
+        } else {
+            employeeService.updateEmployeeWithoutPicture(employee, id);
+        }
         return "redirect:/employee/" + id;
     }
 

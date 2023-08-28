@@ -4,7 +4,6 @@ import com.example.mitarbeiter.entity.ProfilePictureEntity;
 import com.example.mitarbeiter.entity.EmployeeEntity;
 import com.example.mitarbeiter.repository.EmployeeRepository;
 import com.example.mitarbeiter.service.EmployeeService;
-import com.example.mitarbeiter.service.PositionService;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +19,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, PositionService positionService) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
-        // Hinzufügen
     }
 
     @Override
@@ -66,6 +64,21 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public void updateEmployeeWithoutPicture(EmployeeEntity employee, Long employeeId) {
+        EmployeeEntity existingEmployee = employeeRepository.findById(employeeId).orElse(null);
+        if (existingEmployee != null) {
+            existingEmployee.setFirstName(employee.getFirstName());
+            existingEmployee.setLastName(employee.getLastName());
+            existingEmployee.setPosition(employee.getPosition());
+            existingEmployee.setDepartment(employee.getDepartment());
+            existingEmployee.setEmail(employee.getEmail());
+            existingEmployee.setPhoneNumber(employee.getPhoneNumber());
+
+            employeeRepository.save(existingEmployee);
+        }
+    }
+
+    @Override
     public void deleteEmployee(Long employeeId) {
         employeeRepository.deleteById(employeeId);
     }
@@ -76,7 +89,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setProfilePicture(null);
         employeeRepository.save(employee);
     }
-
 
     @Override
     public Page<EmployeeEntity> searchEmployees(String search, Pageable pageable) {

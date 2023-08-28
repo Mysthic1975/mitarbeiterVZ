@@ -18,7 +18,11 @@ public interface EmployeeService {
 
     void updateEmployee(EmployeeEntity employee, Long employeeId, MultipartFile pictureFile);
 
+    void updateEmployeeWithoutPicture(EmployeeEntity employee, Long id);
+
     void deleteEmployee(Long employeeId);
 
     void deleteEmployeePicture(Long id);
+
+
 }
