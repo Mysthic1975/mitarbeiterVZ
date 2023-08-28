@@ -2,57 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="de" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html}">
 <head>
-  <title>Neuen Mitarbeiter anlegen</title>
+    <title>Neuen Mitarbeiter anlegen</title>
 </head>
 <body>
 
 <div layout:fragment="content">
 
-  <div class="container">
-    <h1 class="my-4">Neuen Mitarbeiter anlegen</h1>
+    <div class="container">
+        <h1 class="my-4">Neuen Mitarbeiter anlegen</h1>
 
-    <form action="/employee/create" method="post">
-      <div class="form-row">
-        <div class="col-md-6">
-          <label for="firstName">Vorname</label>
-          <input type="text" class="form-control" id="firstName" name="firstName" />
-        </div>
-        <div class="col-md-6">
-          <label for="lastName">Nachname</label>
-          <input type="text" class="form-control" id="lastName" name="lastName" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-6">
-          <label for="position">Position</label>
-          <select class="form-control" id="position" name="position">
-            <option value="">--Bitte wählen--</option>
-            <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.name}"></option>
-          </select>
-        </div>
-        <div class="col-md-6">
-          <label for="department">Abteilung</label>
-          <input type="text" class="form-control" id="department" name="department" />
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-6">
-          <label for="email">E-Mail</label>
-          <input type="email" class="form-control" id="email" name="email" />
-        </div>
-        <div class="col-md-6">
-          <label for="phoneNumber">Telefonnummer</label>
-          <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" />
-        </div>
-      </div>
+        <form action="/employee/create" method="post">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="firstName">Vorname</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName"/>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName">Nachname</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="position">Position</label>
+                    <select class="form-control" id="position" name="position">
+                        <option value="">--Bitte wählen--</option>
+                        <option th:each="position : ${positions}" th:value="${position.id}"
+                                th:text="${position.name}"></option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="department">Abteilung</label>
+                    <input type="text" class="form-control" id="department" name="department"/>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="email">E-Mail</label>
+                    <input type="email" class="form-control" id="email" name="email"/>
+                </div>
+                <div class="col-md-6">
+                    <label for="phoneNumber">Telefonnummer</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"/>
+                </div>
+            </div>
 
-      <!-- Mitarbeiter anlegen Button und Zurück-Button nebeneinander -->
-      <div class="text-center mt-3">
-        <button type="submit" class="btn btn-primary">Mitarbeiter anlegen</button>
-        <a th:href="@{/}" class="btn btn-secondary ml-2"><i class="material-icons align-middle">arrow_back</i> Zurück zur Startseite</a>
-      </div>
-    </form>
-  </div>
+            <!-- Mitarbeiter anlegen Button und Zurück-Button nebeneinander -->
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Mitarbeiter anlegen</button>
+                <a th:href="@{/}" class="btn btn-secondary ml-2"><i class="material-icons align-middle">arrow_back</i>
+                    Zurück zur Startseite</a>
+            </div>
+        </form>
+    </div>
 
 
 </div>

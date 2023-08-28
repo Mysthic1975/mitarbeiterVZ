@@ -3,7 +3,7 @@
 <head>
     <title>Mitarbeiterverzeichnis</title>
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
@@ -27,8 +27,10 @@
             & thead th a {
                 text-decoration: none;
             }
+
             .material-icons {
                 color: black;
+
                 &.sortedBy {
                     color: green;
                 }
@@ -42,7 +44,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/"><i class="material-icons">home</i></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -55,8 +58,10 @@
             <div layout:fragment="topSearch">
                 <form class="d-flex" action="#" th:action="@{/employee/search}" method="get">
                     <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-                        <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i></button>
+                        <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search"
+                               name="search">
+                        <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i>
+                        </button>
                     </div>
                 </form>
             </div>
@@ -66,13 +71,13 @@
 
 
 <div class="container">
-    <div layout:fragment="content" />
+    <div layout:fragment="content"/>
 </div>
 
 
 <script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
 
-<script layout:fragment="scripts" />
+<script layout:fragment="scripts"/>
 
 </body>
 </html>
