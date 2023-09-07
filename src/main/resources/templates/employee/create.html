@@ -22,7 +22,7 @@
     <div class="container">
         <h1 class="my-4">Neuen Mitarbeiter anlegen</h1>
 
-        <form action="/employee/create" method="post">
+        <form th:action="@{/employee/create}" method="post">
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="firstName">Vorname</label>

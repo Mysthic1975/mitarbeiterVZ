@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -77,6 +78,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/create")
+    @PreAuthorize("hasAuthority('right:employee:create')")                      // Rechte in Keycloak anlegen und an User / Admin Rolen zuweisen
     public String showCreateEmployeeForm(Model model) {
         model.addAttribute("employee", new EmployeeEntity());
 
@@ -87,6 +89,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasAuthority('right:employee:create')")
     public String createEmployee(@ModelAttribute EmployeeEntity employee) {
         employeeService.saveEmployee(employee);
         return "redirect:/";
