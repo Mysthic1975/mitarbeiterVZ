@@ -1,0 +1,117 @@
+/* Navbar */
+
+.custom-navbar {
+    background-color: #c0eec0;
+    margin-top: 5px;
+    height: 48px;
+    width: 100%;
+}
+
+.navbar-nav.mr-auto {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.container-fluid {
+    background-color: #c0eec0;
+}
+
+.navbar-nav {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* card */
+
+.custom-card {
+    background-color: #c0eec0;
+    height: 540px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* Table */
+
+th {
+    vertical-align: middle;
+    text-align: left;
+}
+
+table {
+    & thead th a {
+        text-decoration: none;
+    }
+
+    .material-icons {
+        color: black;
+
+    }
+
+    .sortedBy {
+        color: red;
+    }
+
+    .sort-icon {
+        font-size: 16px;
+        vertical-align: middle;
+        float: right;
+    }
+}
+
+.table-container table tbody tr:nth-child(2n+1) td {
+    background-color: #c0eec0;
+}
+
+/* Button */
+
+/*.logout-container .btn {
+    margin: 5px 10px;
+    font-size: 20px;
+    padding: 5px 20px;
+    background-color: #c0eec0;
+}*/
+
+.btn-container .btn {
+    background-color: #c0eec0;
+}
+
+/* Boarder */
+.btn-container .btn {
+    border-color: black; /* Rand */
+}
+
+/* Body */
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 150px);  /* Anpassen, abhängig von der Höhe des Headers und Footers */
+}
+
+/* Footer */
+
+.custom-footer {
+    background-color: #c0eec0;
+    color: black;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.custom-footer p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+
+
+

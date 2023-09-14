@@ -1,57 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="de" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mitarbeiterverzeichnis</title>
-
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <style>
-        /*.navbar-nav {
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-        }*/
-
-        .btn-icon-small {
-            padding: 3px;
-            height: 24px;
-            vertical-align: baseline;
-
-            & .material-icons {
-                font-size: 16px;
-            }
-        }
-
-        table {
-            & thead th a {
-                text-decoration: none;
-            }
-
-            .material-icons {
-                color: black;
-
-                &.sortedBy {
-                    color: green;
-                }
-            }
-        }
-    </style>
 </head>
+
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+    <div class="container">
         <a class="navbar-brand" href="/"><i class="material-icons">home</i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mb-2 mb-lg-0 mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="/employee/create"><i class="material-icons">add</i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout"><i class="material-icons">exit_to_app</i></a>
                 </li>
             </ul>
             <!-- Suchformular -->
@@ -69,17 +44,28 @@
     </div>
 </nav>
 
+<!--<div class="logout-container">
 <a href="/logout" class="btn btn-primary">Logout</a>
-
+</div> -->
 
 <div class="container">
-    <div layout:fragment="content"/>
+    <div layout:fragment="content"></div>
 </div>
 
+<footer class="custom-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <p>&copy; 2023 Dein Unternehmen</p>
+            </div>
+        </div>
+    </div>
+</footer>
 
-<script th:src="@{/webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js}"></script>
 
-<script layout:fragment="scripts"/>
+<script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
+
+<script layout:fragment="scripts"></script>
 
 </body>
 </html>
