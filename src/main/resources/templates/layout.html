@@ -4,17 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Mitarbeiterverzeichnis</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/style.css}"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 </head>
 
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
-    <div class="container">
+    <div class="container-fluid">
         <a class="navbar-brand" href="/"><i class="material-icons">home</i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,24 +28,9 @@
                     <a class="nav-link" href="/logout"><i class="material-icons">exit_to_app</i></a>
                 </li>
             </ul>
-            <!-- Suchformular -->
-            <div layout:fragment="topSearch">
-                <form class="d-flex" action="#" th:action="@{/employee/search}" method="get">
-                    <div class="input-group">
-                        <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search"
-                               name="search">
-                        <button class="btn btn-outline-secondary" type="submit"><i class="material-icons">search</i>
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </nav>
-
-<!--<div class="logout-container">
-<a href="/logout" class="btn btn-primary">Logout</a>
-</div> -->
 
 <div class="container">
     <div layout:fragment="content"></div>
@@ -62,10 +46,9 @@
     </div>
 </footer>
 
-
-<script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
-
+<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
 <script layout:fragment="scripts"></script>
 
 </body>
 </html>
+

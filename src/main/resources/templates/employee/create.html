@@ -6,72 +6,66 @@
 </head>
 <body>
 
-<div layout:fragment="topSearch">
-    <form class="d-flex" action="#" th:action="@{/employee}" method="get">
-        <div class="input-group">
-            <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons"
-                                                                       style="color: black; border: none;">search</i>
-            </button>
-        </div>
-    </form>
-</div>
-
 <div layout:fragment="content">
 
     <div class="centered-content">
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron d-flex justify-content-between align-items-center">
                 <h1 class="my-4">Neuen Mitarbeiter anlegen</h1>
             </div>
 
-            <div class="card custom-card w-80 mx-auto">
+            <div class="card custom-card w-80 h-100">
                 <div class="card-body">
-                    <!-- Mitarbeiter anlegen-Formular -->
-                    <form th:action="@{/employee/create}" method="post" enctype="multipart/form-data" id="employeeForm">
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="firstName">Vorname</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName"/>
+                    <div class="row custom-row align-items-center">
+                        <!-- Mitarbeiter anlegen-Formular -->
+                        <form th:action="@{/employee/create}" method="post" enctype="multipart/form-data"
+                              id="employeeForm">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="firstName">Vorname</label>
+                                    <input type="text" class="form-control" id="firstName" name="firstName"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName">Nachname</label>
+                                    <input type="text" class="form-control" id="lastName" name="lastName"/>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="lastName">Nachname</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName"/>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="position">Position</label>
+                                    <select class="form-control" id="position" name="position">
+                                        <option value="">--Bitte wählen--</option>
+                                        <option th:each="position : ${positions}" th:value="${position.id}"
+                                                th:text="${position.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="department">Abteilung</label>
+                                    <input type="text" class="form-control" id="department" name="department"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="position">Position</label>
-                                <select class="form-control" id="position" name="position">
-                                    <option value="">--Bitte wählen--</option>
-                                    <option th:each="position : ${positions}" th:value="${position.id}"
-                                            th:text="${position.name}"></option>
-                                </select>
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="email">E-Mail</label>
+                                    <input type="email" class="form-control" id="email" name="email"/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phoneNumber">Telefonnummer</label>
+                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"/>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="department">Abteilung</label>
-                                <input type="text" class="form-control" id="department" name="department"/>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-6">
-                                <label for="email">E-Mail</label>
-                                <input type="email" class="form-control" id="email" name="email"/>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="phoneNumber">Telefonnummer</label>
-                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"/>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
 
 
             <div class="d-flex justify-content-between align-items-center mt-3">
-                <a th:href="@{/}" class="btn btn-secondary"><i class="material-icons align-middle">arrow_back</i>
+                <a th:href="@{/}" class="btn btn-secondary btn-back"><i
+                        class="material-icons align-middle">arrow_back</i>
                     Zurück zur Startseite</a>
-                <button type="submit" class="btn btn-primary" form="employeeForm">Mitarbeiter anlegen</button>
+                <button type="submit" class="btn btn-primary btn-bottom" form="employeeForm">Mitarbeiter anlegen
+                </button>
             </div>
         </div>
     </div>
@@ -79,4 +73,3 @@
 
 </body>
 </html>
-

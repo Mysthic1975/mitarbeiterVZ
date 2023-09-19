@@ -1,7 +1,7 @@
 /* Navbar */
 
 .custom-navbar {
-    background-color: #c0eec0;
+    background-color: #3d5a80;
     margin-top: 5px;
     height: 48px;
     width: 100%;
@@ -12,9 +12,9 @@
     margin-right: auto;
 }
 
-.container-fluid {
-    background-color: #c0eec0;
-}
+/*.container-fluid {
+    background-color: #3d5a80;
+}*/
 
 .navbar-nav {
     margin: 0 auto;
@@ -25,7 +25,7 @@
 /* card */
 
 .custom-card {
-    background-color: #c0eec0;
+    background-color: #98c1d9;
     height: 540px;
     border-color: black;
     border-width: 1px;
@@ -33,6 +33,33 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
+}
+
+.card-body {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+}
+
+/*.row {
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    align-items: center;
+}*/
+
+.col-md-6 {
+    width: 50%;
+}
+
+.table {
+    margin-right: 20px;
+}
+
+.img-thumbnail {
+    margin-left: 20px;
 }
 
 /* Table */
@@ -48,12 +75,12 @@ table {
     }
 
     .material-icons {
-        color: black;
+        color: #1e1e1e;
 
     }
 
     .sortedBy {
-        color: red;
+        color: #ee6c4d;
     }
 
     .sort-icon {
@@ -64,25 +91,37 @@ table {
 }
 
 .table-container table tbody tr:nth-child(2n+1) td {
-    background-color: #c0eec0;
+    background-color: #e0fbfc;
+}
+
+.custom-row {
+    width: 1070px;
+    height: 518px;
 }
 
 /* Button */
 
-/*.logout-container .btn {
-    margin: 5px 10px;
-    font-size: 20px;
-    padding: 5px 20px;
-    background-color: #c0eec0;
-}*/
+.btn-back {
+    font-size: 16px; /* Schriftgröße */
+    margin-top: 10px; /* Abstand */
+    width: 199px; /* Breite */
+    height: 40px; /* Höhe */
+    background-color: #ff0000; /* Hintergrundfarbe */
+    color: #ffffff; /* Textfarbe */
+}
 
-.btn-container .btn {
-    background-color: #c0eec0;
+.btn-bottom {
+    font-size: 16px; /* Schriftgröße */
+    margin-top: 10px; /* Abstand */
+    width: 199px; /* Breite */
+    height: 40px; /* Höhe */
 }
 
 /* Boarder */
+
 .btn-container .btn {
     border-color: black; /* Rand */
+    background-color: white;
 }
 
 /* Body */
@@ -92,17 +131,17 @@ table {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 150px);  /* Anpassen, abhängig von der Höhe des Headers und Footers */
+    min-height: calc(100vh - 150px); /* Anpassen, abhängig von der Höhe des Headers und Footers */
 }
 
 /* Footer */
 
 .custom-footer {
-    background-color: #c0eec0;
+    position: fixed;
+    background-color: #3d5a80;
     color: black;
     text-align: center;
     padding: 10px 0;
-    position: absolute;
     bottom: 0;
     width: 100%;
 }
@@ -111,7 +150,6 @@ table {
     margin: 0;
     line-height: 1.5;
 }
-
 
 
 

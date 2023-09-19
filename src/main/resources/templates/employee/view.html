@@ -6,85 +6,75 @@
 </head>
 <body>
 
-<div layout:fragment="topSearch">
-    <form class="d-flex" action="#" th:action="@{/employee}" method="get">
-        <div class="input-group">
-            <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons"
-                                                                       style="color: black; border: none;">search</i>
-            </button>
-        </div>
-    </form>
-</div>
-
 <div layout:fragment="content">
 
     <div class="centered-content">
-    <div class="container">
-        <div class="jumbotron">
-            <h1 class="my-4">Mitarbeiterdetails</h1>
-        </div>
-
-        <div class="card custom-card w-80 mx-auto">
-            <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <table class="table">
-                    <tr>
-                        <th>ID</th>
-                        <td th:text="${employee.id}"></td>
-                    </tr>
-                    <tr>
-                        <th>Vorname</th>
-                        <td th:text="${employee.firstName}"></td>
-                    </tr>
-                    <tr>
-                        <th>Nachname</th>
-                        <td th:text="${employee.lastName}"></td>
-                    </tr>
-                    <tr>
-                        <th>Position</th>
-                        <td th:text="${employee.position.name}"></td>
-                    </tr>
-                    <tr>
-                        <th>Abteilung</th>
-                        <td th:text="${employee.department}"></td>
-                    </tr>
-                    <tr>
-                        <th>E-Mail</th>
-                        <td th:text="${employee.email}"></td>
-                    </tr>
-                    <tr>
-                        <th>Telefonnummer</th>
-                        <td th:text="${employee.phoneNumber}"></td>
-                    </tr>
-                </table>
+        <div class="container">
+            <div class="jumbotron d-flex justify-content-between align-items-center">
+                <h1 class="my-4">Mitarbeiterdetails</h1>
             </div>
-            <div class="col-md-6">
-                <div class="text-center">
-                    <div th:if="${employee.profilePicture != null}">
-                        <img alt="Profilbild" class="img-thumbnail" style="max-width: 200px; max-height: 200px;"
-                             th:src="@{/employee/{id}/profile-picture(id=${employee.id})}"/>
-                    </div>
-                    <div th:unless="${employee.profilePicture}">
-                        <p>Kein Profilbild vorhanden.</p>
+
+            <div class="card custom-card w-80 h-100">
+                <div class="card-body">
+                    <div class="row custom-row align-items-center">
+                        <div class="col-md-6 text-center">
+                            <table class="table">
+                                <tr>
+                                    <th>ID</th>
+                                    <td th:text="${employee.id}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Vorname</th>
+                                    <td th:text="${employee.firstName}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Nachname</th>
+                                    <td th:text="${employee.lastName}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Position</th>
+                                    <td th:text="${employee.position.name}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Abteilung</th>
+                                    <td th:text="${employee.department}"></td>
+                                </tr>
+                                <tr>
+                                    <th>E-Mail</th>
+                                    <td th:text="${employee.email}"></td>
+                                </tr>
+                                <tr>
+                                    <th>Telefonnummer</th>
+                                    <td th:text="${employee.phoneNumber}"></td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="col-md-6 d-flex justify-content-center align-items-center">
+                            <div class="text-center">
+                                <div th:if="${employee.profilePicture != null}">
+
+                                    <img alt="Profilbild" class="img-thumbnail"
+                                         style="max-width: 200px; max-height: 200px;"
+                                         th:src="@{/employee/{id}/profile-picture(id=${employee.id})}"/>
+                                </div>
+                                <div th:unless="${employee.profilePicture}">
+                                    <p>Kein Profilbild vorhanden.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-                </div>
-        </div>
 
-        <!-- Zurück-Button links unter dem Bearbeiten-Button -->
-        <div class="d-flex justify-content-between align-items-center mt-3">
-            <a th:href="@{/}" class="btn btn-secondary ml-2"><i class="material-icons align-middle">arrow_back</i>
-                Zurück zur Startseite</a>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <a th:href="@{/}" class="btn btn-secondary btn-back"><i
+                        class="material-icons align-middle">arrow_back</i>
+                    Zurück zur Startseite</a>
+            </div>
         </div>
     </div>
-    </div>
-
-    <script th:src="@{/webjars/bootstrap/5.3.1/js/bootstrap.bundle.min.js}"></script>
-
 </div>
 </body>
 </html>

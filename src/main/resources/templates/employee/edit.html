@@ -6,35 +6,23 @@
 </head>
 <body>
 
-<div layout:fragment="topSearch">
-    <form class="d-flex" action="#" th:action="@{/employee}" method="get">
-        <div class="input-group">
-            <input class="form-control" type="search" placeholder="Suche" aria-label="Suche" id="search" name="search">
-            <button class="btn btn-outline-secondary" type="submit"><i class="material-icons"
-                                                                       style="color: black; border: none;">search</i>
-            </button>
-        </div>
-    </form>
-</div>
-
 <div layout:fragment="content">
 
     <div class="centered-content">
         <div class="container">
-            <div class="jumbotron">
+            <div class="jumbotron d-flex justify-content-between align-items-center">
                 <h1 class="my-4">Mitarbeiter bearbeiten</h1>
             </div>
 
-            <div class="card custom-card w-80 mx-auto">
+            <div class="card custom-card w-80 h-100">
                 <div class="card-body">
                     <!-- Bearbeiten-Formular -->
                     <form action="#" th:action="@{/employee/{id}/edit(id=${employee.id})}" th:object="${employee}"
                           method="post"
                           enctype="multipart/form-data" id="employeeForm">
 
-                        <!-- Verstecktes Feld für die ID des Mitarbeiters -->
                         <input type="hidden" th:field="*{id}"/>
-                        <div class="row">
+                        <div class="row custom-row align-items-center">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="firstName">Vorname</label>
@@ -65,32 +53,32 @@
                                     <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}"/>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 d-flex justify-content-center align-items-center">
                                 <div class="text-center">
-                                    <div th:if="${imageBase64Src != null}">
-                                        <img alt="Profilbild" class="img-thumbnail"
-                                             style="max-width: 200px; max-height: 200px;"
-                                             th:src="@{/employee/{id}/profile-picture(id=${employee.id})}">
-                                        <br>
-                                        <div class="mt-2">
-                                            <input type="file" id="picture" name="picture" accept="image/*"
-                                                   style="display: none;"/>
-                                            <label for="picture" class="btn btn-secondary"
-                                                   style="display: inline-block;"><i
-                                                    class="material-icons">add</i></label>
-                                            <a th:href="@{/employee/{id}/delete-picture(id=${employee.id})}"
-                                               class="btn btn-danger ml-2" style="display: inline-block;"><i
-                                                    class="material-icons">delete</i></a>
+                                        <div th:if="${imageBase64Src != null}">
+                                            <img alt="Profilbild" class="img-thumbnail"
+                                                 style="max-width: 200px; max-height: 200px;"
+                                                 th:src="@{/employee/{id}/profile-picture(id=${employee.id})}">
+                                            <br>
+                                            <div class="mt-2">
+                                                <input type="file" id="picture" name="picture" accept="image/*"
+                                                       style="display: none;"/>
+                                                <label for="picture" class="btn btn-secondary"
+                                                       style="display: inline-block;"><i
+                                                        class="material-icons">add</i></label>
+                                                <a th:href="@{/employee/{id}/delete-picture(id=${employee.id})}"
+                                                   class="btn btn-danger ml-2" style="display: inline-block;"><i
+                                                        class="material-icons">delete</i></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div th:unless="${imageBase64Src}">
-                                        <p>Kein Profilbild vorhanden.</p>
-                                        <div class="mt-2">
-                                            <input type="file" id="picture" name="picture" accept="image/*"
-                                                   style="display: none;"/>
-                                            <label for="picture" class="btn btn-secondary"
-                                                   style="display: inline-block;"><i
-                                                    class="material-icons">add</i></label>
+                                        <div th:unless="${imageBase64Src}">
+                                            <p>Kein Profilbild vorhanden.</p>
+                                            <div class="mt-2">
+                                                <input type="file" id="picture" name="picture" accept="image/*"
+                                                       style="display: none;"/>
+                                                <label for="picture" class="btn btn-secondary"
+                                                       style="display: inline-block;"><i
+                                                        class="material-icons">add</i></label>
                                         </div>
                                     </div>
                                 </div>
@@ -100,11 +88,12 @@
                 </div>
             </div>
 
-
             <div class="d-flex justify-content-between align-items-center mt-3">
-                <a th:href="@{/}" class="btn btn-secondary"><i class="material-icons align-middle">arrow_back</i>
+                <a th:href="@{/}" class="btn btn-secondary btn-back"><i
+                        class="material-icons align-middle">arrow_back</i>
                     Zurück zur Startseite</a>
-                <button type="submit" class="btn btn-primary ml-2" form="employeeForm">Änderungen speichern</button>
+                <button type="submit" class="btn btn-primary btn-bottom" form="employeeForm">Änderungen speichern
+                </button>
             </div>
         </div>
     </div>
@@ -112,7 +101,6 @@
 
 </body>
 </html>
-
 
 
 
